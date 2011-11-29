@@ -10,4 +10,29 @@ If you've ever had to deal with an audit department, you understand some of the 
 
 Any process that involves changing code between environments, even in an automated fashion, is great fodder for the audit machine. This extension makes sure the javascript and css you work with in development is the same as it will be in production.
 
+# How?
 
+First you need to have a config file, it's location should be set in the pubba_config setting:
+    set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
+
+Here's an example file:
+
+    global:                        
+      styles:
+        - "custom/global"
+      head_scripts:                
+        - "third-party/jquery-1.7.0.min"
+      body_scripts:
+        - "third-party/jquery.cookie"
+        - "custom/autocomplete"    
+        - "custom/application"     
+
+    # Home page configuration      
+      home:
+        styles:
+          - "custom/home"
+
+    # Search results page configuration
+      search:
+        styles:
+          - "custom/search"

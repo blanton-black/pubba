@@ -1,3 +1,4 @@
+require 'sinatra/base'
 require 'psych'
 require 'sprockets'
 
@@ -7,7 +8,7 @@ module Sinatra
   module Pubba
     class << self
       def process_yaml
-        yaml = Psych.load_file(File.join(settings.root, '..', 'config',  'pubba.yml'))
+        yaml = Psych.load_file(settings.pubba_config)
 
         Site.global_configuration = yaml.delete("global")
 

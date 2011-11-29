@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.dirname(__FILE__) + '/lib/pubba/version'
+require File.dirname(__FILE__) + '/lib/sinatra/pubba/version'
 require 'date'
 
 Gem::Specification.new do |s|
