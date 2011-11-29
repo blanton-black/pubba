@@ -1,0 +1,14 @@
+*.swp
+*.gem
+
+readme.html
+Gemfile.lock
+
+.bundle
+.rvmrc
+.DS_Store
+.yardoc
+
+doc
+coverage
+pkg
