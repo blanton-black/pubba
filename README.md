@@ -10,6 +10,13 @@ If you've ever had to deal with an audit department, you understand some of the 
 
 Any process that involves changing code between environments, even in an automated fashion, is great fodder for the audit machine. This extension makes sure the javascript and css you work with in development is the same as it will be in production.
 
+# Settings
+
+More details on these later, but here are the configuration options:
+
+### Location of the config file
+    set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
+
 # How?
 
 First you need to have a config file, it's location should be set in the pubba_config setting:
