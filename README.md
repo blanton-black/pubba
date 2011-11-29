@@ -13,6 +13,7 @@ Any process that involves changing code between environments, even in an automat
 # How?
 
 First you need to have a config file, it's location should be set in the pubba_config setting:
+
     set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
 
 Here's an example file:
@@ -36,3 +37,9 @@ Here's an example file:
       search:
         styles:
           - "custom/search"
+
+First let's cover the "custom/*" and "third-party/*" values. This is a convention whose goal is to only have pubba generated javascripts and stylesheets in the root dir. More on this later...
+
+The config file is referencing javascripts and stylesheets located in the asset_folder, which you need to set by:
+
+    set :asset_folder, File.join(settings.root, 'assets')
