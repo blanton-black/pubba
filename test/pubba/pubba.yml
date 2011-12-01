@@ -1,0 +1,20 @@
+# Global configuration. Settings here will be applied to all pages.
+global:
+  styles:
+    - "custom/global"
+  head_scripts:
+    - "third-party/jquery-1.7.0.min"
+  body_scripts:
+    - "third-party/jquery.cookie"
+    - "custom/autocomplete"
+    - "custom/application"
+
+# Home page configuration
+home:
+  styles:
+    - "custom/home"
+
+# Search page configuration
+search:
+  styles:
+    - "custom/search"
