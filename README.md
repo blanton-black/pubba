@@ -16,7 +16,7 @@ More details on these later, but here are the configuration options:
 
 **Note: `settings.root` refers to \<ProjectRoot\>/app/**
 
-### Location of the config file. **REQUIRED**
+### Location of the config file. __REQUIRED__
     set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
 
 ### Location of the public_folder. **REQUIRED**
