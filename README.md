@@ -16,18 +16,25 @@ More details on these later, but here are the configuration options:
 
 **Note: `settings.root` refers to \<ProjectRoot\>/app/**
 
-### Location of the config file. __REQUIRED__
+### Location of the config file. REQUIRED
     set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
 
-### Location of the public_folder. **REQUIRED**
+### Location of the public_folder. REQUIRED
     set :public_folder, File.join(settings.root, '..', 'public')
 
-### Location of the asset_folder. **REQUIRED**
+### Location of the asset_folder. REQUIRED
     set :asset_folder, File.join(settings.root, 'assets')
 
-### Asset handler. **Defaults to Sprockets**
+### Asset handler. Defaults to [Sprockets](https://github.com/sstephenson/sprockets)
 Right now there's only support for Sprockets, but leaving the option open for others.
     set :asset_handler, Sinatra::Pubba::Assets::SprocketsHandler
+
+### Use [R18n](http://r18n.rubyforge.org/)
+    set :r18n, true
+
+### Location of the r18n_folder. REQUIRED if r18n is enabled
+    set :asset_folder, File.join(settings.root, 'assets')
+
 
 # How?
 
@@ -57,8 +64,14 @@ Here's an example file:
         styles:
           - "custom/search"
 
-First let's cover the "custom/*" and "third-party/*" values. This is a convention whose goal is to only have pubba generated javascripts and stylesheets in the root dir. More on this later...
-
-The config file is referencing javascripts and stylesheets located in the asset_folder, which you need to set by:
+The config file is referencing the javascripts and stylesheets folders located in the asset_folder, which you need to set by:
 
     set :asset_folder, File.join(settings.root, 'assets')
+
+
+
+
+
+
+
+
