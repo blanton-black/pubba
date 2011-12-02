@@ -13,6 +13,7 @@ Any process that involves changing code between environments, even in an automat
 # Settings
 
 More details on these later, but here are the configuration options:
+
 ** settings.root refers to <ProjectRoot>/app/ **
 
 ### Location of the config file. **REQUIRED**
