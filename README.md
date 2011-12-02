@@ -14,7 +14,7 @@ Any process that involves changing code between environments, even in an automat
 
 More details on these later, but here are the configuration options:
 
-**settings.root refers to <ProjectRoot>/app/**
+**Note: settings.root refers to <ProjectRoot>/app/**
 
 ### Location of the config file. **REQUIRED**
     set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
