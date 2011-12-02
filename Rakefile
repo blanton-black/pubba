@@ -8,7 +8,7 @@ require 'rake/testtask'
 
 Rake::TestTask.new('test') do |t|
   t.libs << 'lib' << 'test'
-  t.test_files = FileList['test/pubba/test_*.rb']
+  t.test_files = Dir.glob('test/**/test_*.rb')
   t.verbose = true
 end
 
@@ -20,7 +20,7 @@ begin
   require 'rcov/rcovtask'
   Rcov::RcovTask.new do |t|
     t.libs << 'lib' << 'test'
-    t.test_files = FileList['test/pubba/test_*.rb']
+    t.test_files = Dir.glob('test/**/test_*.rb')
     t.verbose = true
   end
 rescue LoadError
