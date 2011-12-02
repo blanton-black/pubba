@@ -13,9 +13,20 @@ Any process that involves changing code between environments, even in an automat
 # Settings
 
 More details on these later, but here are the configuration options:
+** settings.root refers to <ProjectRoot>/app/ **
 
-### Location of the config file
+### Location of the config file. **REQUIRED**
     set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
+
+### Location of the public_folder. **REQUIRED**
+    set :public_folder, File.join(settings.root, '..', 'public')
+
+### Location of the asset_folder. **REQUIRED**
+    set :asset_folder, File.join(settings.root, 'assets')
+
+### Asset handler. **Defaults to Sprockets**
+Right now there's only support for Sprockets, but leaving the option open for others.
+    set :asset_handler, Sinatra::Pubba::Assets::SprocketsHandler
 
 # How?
 
@@ -25,17 +36,17 @@ First you need to have a config file, it's location should be set in the pubba_c
 
 Here's an example file:
 
-    global:                        
+    global:
       styles:
         - "custom/global"
-      head_scripts:                
+      head_scripts:
         - "third-party/jquery-1.7.0.min"
       body_scripts:
         - "third-party/jquery.cookie"
-        - "custom/autocomplete"    
-        - "custom/application"     
+        - "custom/autocomplete"
+        - "custom/application"
 
-    # Home page configuration      
+    # Home page configuration
       home:
         styles:
           - "custom/home"
