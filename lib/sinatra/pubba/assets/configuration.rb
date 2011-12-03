@@ -1,3 +1,5 @@
+require 'psych'
+
 module Sinatra
   module Pubba
     module Assets
