@@ -1,0 +1,15 @@
+home:
+  title: "Home title"
+  meta_description: "Home meta description"
+  meta_keywords: "Home keywords"
+  welcome_text: "Welcome Home"
+
+search:
+  title: "Search title"
+  meta_description: "Search meta description"
+  meta_keywords: "Search meta keywords"
+
+logout_link: "Logout"
+login_link: "Login"
+home_link: "Home"
+account_link: "My Account"

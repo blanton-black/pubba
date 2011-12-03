@@ -29,11 +29,11 @@ More details on these later, but here are the configuration options:
 Right now there's only support for Sprockets, but leaving the option open for others.
     set :asset_handler, Sinatra::Pubba::Assets::SprocketsHandler
 
-### Use [R18n](http://r18n.rubyforge.org/)
-    set :r18n, true
+### Location of the [R18n](http://r18n.rubyforge.org/) folder. OPTIONAL
+    set :r18n_folder, File.join(settings.root, 'i18n')
 
-### Location of the r18n_folder. REQUIRED if r18n is enabled
-    set :asset_folder, File.join(settings.root, 'assets')
+### Locale. Defaults to 'en'
+    set :r18n_locale, 'en'
 
 
 # How?

@@ -6,7 +6,7 @@ module Sinatra
     module Assets
       class SprocketsHandler < Handler
         def self.find(file)
-          SprocketHandler.new(sprockets.find_asset(file))
+          SprocketsHandler.new(sprockets.find_asset(file))
         end
 
         def self.asset_paths(*paths)

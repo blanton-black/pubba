@@ -2,7 +2,7 @@ module Sinatra
   module Pubba
     class Page
       attr_accessor :name
-      attr_reader :assets, :r18n
+      attr_reader :assets
 
       def initialize(name, global_configuration = {})
         @name = name
@@ -22,7 +22,10 @@ module Sinatra
       end
 
       def method_missing(meth, *args)
-        t.send(name).send(meth, *args)
+        if Site.locale && (t = Site.locale.get(name, meth, *args))
+          return t
+        end
+        super
       end
 
       private

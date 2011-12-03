@@ -11,19 +11,19 @@ class TestPubbaSite < TestPubba
   end
 
   def test_script_public_folder_initialization
-    assert_equal "#{R.public_dir}/javascripts", Sinatra::Pubba::Site.script_public_folder
+    assert_equal "#{R.public_folder}/javascripts", Sinatra::Pubba::Site.script_public_folder
   end
 
   def test_style_public_folder_initialization
-    assert_equal "#{R.public_dir}/stylesheets", Sinatra::Pubba::Site.style_public_folder
+    assert_equal "#{R.public_folder}/stylesheets", Sinatra::Pubba::Site.style_public_folder
   end
 
   def test_script_asset_folder_initialization
-    assert_equal "#{R.asset_dir}/javascripts", Sinatra::Pubba::Site.script_asset_folder
+    assert_equal "#{R.asset_folder}/javascripts", Sinatra::Pubba::Site.script_asset_folder
   end
 
   def test_style_asset_folder_initialization
-    assert_equal "#{R.asset_dir}/stylesheets", Sinatra::Pubba::Site.style_asset_folder
+    assert_equal "#{R.asset_folder}/stylesheets", Sinatra::Pubba::Site.style_asset_folder
   end
 
   def test_asset_types_initialization

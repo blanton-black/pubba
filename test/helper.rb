@@ -6,11 +6,19 @@ MiniTest::Unit.autorun
 module R
   extend self
 
-  def asset_dir
-    File.join(File.dirname(__FILE__), 'sinatra', 'app', 'assets')
+  def app_folder
+    File.join(File.dirname(__FILE__), 'sinatra', 'app')
   end
 
-  def public_dir
+  def asset_folder
+    File.join(app_folder, 'assets')
+  end
+
+  def r18n_folder
+    File.join(app_folder, 'i18n')
+  end
+
+  def public_folder
     File.join(File.dirname(__FILE__), 'sinatra', 'public')
   end
 
@@ -26,8 +34,9 @@ class TestPubba < MiniTest::Unit::TestCase
     mock_app do
       require 'sinatra/pubba'
 
-      settings.set :public_folder, R.public_dir
-      settings.set :asset_folder, R.asset_dir
+      settings.set :public_folder, R.public_folder
+      settings.set :asset_folder, R.asset_folder
+      settings.set :r18n_folder, R.r18n_folder
 
       settings.set :pubba_config, R.pubba_config_file
 
@@ -36,12 +45,12 @@ class TestPubba < MiniTest::Unit::TestCase
   end
 
   def teardown
-    [R.asset_dir, R.public_dir].each do |root_dir|
-      Dir.glob(File.join(root_dir, 'javascripts', '*.js')) do |f|
+    [R.asset_folder, R.public_folder].each do |root_folder|
+      Dir.glob(File.join(root_folder, 'javascripts', '*.js')) do |f|
         File.delete(f) if File.exist?(f)
       end
 
-      Dir.glob(File.join(root_dir, 'stylesheets', '*.css')) do |f|
+      Dir.glob(File.join(root_folder, 'stylesheets', '*.css')) do |f|
         File.delete(f) if File.exist?(f)
       end
     end
