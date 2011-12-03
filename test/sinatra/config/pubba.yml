@@ -3,11 +3,10 @@ global:
   styles:
     - "custom/global"
   head_scripts:
-    - "third-party/jquery-1.7.0.min"
+    - "third-party/jq"
   body_scripts:
-    - "third-party/jquery.cookie"
-    - "custom/autocomplete"
-    - "custom/application"
+    - "third-party/jqc"
+    - "custom/app"
 
 # Home page configuration
 home:
@@ -18,3 +17,4 @@ home:
 search:
   styles:
     - "custom/search"
+    - "third-party/widget"

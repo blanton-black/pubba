@@ -2,7 +2,7 @@ require 'helper'
 
 class TestPubbaSite < TestPubba
   def test_global_asset_configuration_initialization
-    hsh = {"styles"=>["custom/global"], "head_scripts"=>["third-party/jquery-1.7.0.min"], "body_scripts"=>["third-party/jquery.cookie", "custom/autocomplete", "custom/application"]}
+    hsh = {"styles"=>["custom/global"], "head_scripts"=>["third-party/jq"], "body_scripts"=>["third-party/jqc", "custom/app"]}
     assert_equal hsh, Sinatra::Pubba::Site.global_asset_configuration
   end
 

@@ -19,6 +19,10 @@ class TestPubba < MiniTest::Unit::TestCase
     end
   end
 
+  def teardown
+    #Dir.glob(File.join(File.dirname(__FILE__), 'sinatra', 'app', 'assets', 'javascripts', '*.js') do |f|
+  end
+
   def empty_hash
     {}
   end
