@@ -3,6 +3,22 @@ require 'sinatra/test_helpers'
 
 MiniTest::Unit.autorun
 
+module R
+  extend self
+
+  def asset_dir
+    File.join(File.dirname(__FILE__), 'sinatra', 'app', 'assets')
+  end
+
+  def public_dir
+    File.join(File.dirname(__FILE__), 'sinatra', 'public')
+  end
+
+  def pubba_config_file
+    File.join(File.dirname(__FILE__), 'sinatra', 'config', 'pubba.yml')
+  end
+end
+
 class TestPubba < MiniTest::Unit::TestCase
   include Sinatra::TestHelpers
 
@@ -10,20 +26,29 @@ class TestPubba < MiniTest::Unit::TestCase
     mock_app do
       require 'sinatra/pubba'
 
-      settings.set :public_folder, File.join(File.dirname(__FILE__), 'sinatra', 'public')
-      settings.set :asset_folder, File.join(File.dirname(__FILE__), 'sinatra', 'app', 'assets')
+      settings.set :public_folder, R.public_dir
+      settings.set :asset_folder, R.asset_dir
 
-      settings.set :pubba_config, File.join(File.dirname(__FILE__), 'sinatra', 'config', 'pubba.yml')
+      settings.set :pubba_config, R.pubba_config_file
 
       register Sinatra::Pubba
     end
   end
 
   def teardown
-    #Dir.glob(File.join(File.dirname(__FILE__), 'sinatra', 'app', 'assets', 'javascripts', '*.js') do |f|
+    [R.asset_dir, R.public_dir].each do |root_dir|
+      Dir.glob(File.join(root_dir, 'javascripts', '*.js')) do |f|
+        File.delete(f) if File.exist?(f)
+      end
+
+      Dir.glob(File.join(root_dir, 'stylesheets', '*.css')) do |f|
+        File.delete(f) if File.exist?(f)
+      end
+    end
   end
 
   def empty_hash
     {}
   end
 end
+
