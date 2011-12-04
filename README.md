@@ -105,6 +105,10 @@ Now here's what you get...
 
 * Tag helpers
     * `page_head_tags`
+      This helper emits the `link` and `script` tags with the contents defined in `pubba.yml`
+    * `page_body_tags`
+      This helper emits the `script` tag with the contents defined in `pubba.yml`
+      This helper emits the `link` and `script` tags needed for your app to make use of
 
 
 # Acknowledgement
