@@ -2,6 +2,10 @@
 
 pubba is a Sinatra extension designed to help you manage your site. It uses [Sprockets](https://github.com/sstephenson/sprockets) for packaging assets and [R18n](http://r18n.rubyforge.org/) for internationalization/localization. I use R18n as a central location for default text, the internationalization functionality is a nice bonus in the event the application needs to move in that direction.
 
+# Note
+
+This extension is under heavy, heavy development and is subject to massive changes over the next week or so.
+
 # Why?
 
 There's really two main driving forces behind this extension: audit requirements and code organization.
@@ -69,4 +73,7 @@ Here's an example file:
 The config file is referencing the javascripts and stylesheets folders located in the asset_folder, which you need to set by:
 
     set :asset_folder, File.join(settings.root, 'assets')
+
+
+
 
