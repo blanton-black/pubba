@@ -114,6 +114,7 @@ The `@page` variable gives you access to the definitions in __en.yml__. In your 
 Notice that `title` is defined under the `home` section, but `home_link` is a top level definition. Pubba makes the effort to correctly resolve the __en.yml__ reference for you. Nice isn't it.
 
 Now you obviouslly need some helpers to make use of the definitions in __pubba.yml__, and here they are:
+
     * `page_head_tags`
       This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
     * `page_body_tags`
