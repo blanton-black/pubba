@@ -73,7 +73,7 @@ Then you'll want to use it in your app like so:
       register Sinatra::Pubba
     end
 
-Next up is creating the all important `pubba.yml` config file:
+Next up is creating the all important __pubba.yml__ config file:
 
     global:
       styles:
