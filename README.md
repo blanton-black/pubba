@@ -24,7 +24,9 @@ Any process that involves changing code between environments, even in an automat
 
 This does the require the use of a cache bursting query parameter to be added to the url instead of the digest per asset approach. While the digest approach is much more accurate it complicates using a commit/tag to completely represent the deployment contents.
 
-As mentioned, code organization is another focus of Pubba. The config file __pubba.yml__  uses the global section to clearly state which assets should be on all pages.
+As mentioned, code organization is another focus of Pubba. The config file __pubba.yml__  uses the global section to clearly state which assets should be on all pages. In addition, when using R18n, Pubba gives you access through a single page object.
+
+
 # Settings
 
 More details on these later, but here are the configuration options:
@@ -95,9 +97,7 @@ Next up is creating the all important __pubba.yml__ config file:
       styles:
         - "custom/search"
 
-The config file is referencing the javascripts and stylesheets folders located in the `asset_folder`.
-
-    set :asset_folder, File.join(settings.root, 'assets')
+The config file is referencing the javascripts and stylesheets located in the `asset_folder`.
 
 If you're using R18n, you will need a translation file, here's a sample en.yml:
 
