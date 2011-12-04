@@ -115,10 +115,10 @@ Notice that `title` is defined under the `home` section, but `home_link` is a to
 
 Now you obviouslly need some helpers to make use of the definitions in __pubba.yml__, and here they are:
 
-    * `page_head_tags`
-      This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
-    * `page_body_tags`
-      This helper emits the `script` tag with the contents defined in __pubba.yml__. You would typically place this just before the `</body>` tag.
+* `page_head_tags`
+  This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
+* `page_body_tags`
+  This helper emits the `script` tag with the contents defined in __pubba.yml__. You would typically place this just before the `</body>` tag.
 
 Sample use:
 
