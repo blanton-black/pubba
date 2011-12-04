@@ -22,8 +22,9 @@ If you've ever had to deal with an audit department, you understand some of the 
 
 Any process that involves changing code between environments, even in an automated fashion, is great fodder for the audit machine. This extension makes sure the javascript and css you work with in development is the same as it will be in production.
 
-This does the require the use of a cache bursting query parameter to be added to the url instead of the digest per asset approach. While the digest approach is much more accurate it complicates the use of using a commit/tag to completely represent the deployment contents.
+This does the require the use of a cache bursting query parameter to be added to the url instead of the digest per asset approach. While the digest approach is much more accurate it complicates using a commit/tag to completely represent the deployment contents.
 
+As mentioned, code organization is another focus of Pubba. The config file __pubba.yml__  uses the global section to clearly state which assets should be on all pages.
 # Settings
 
 More details on these later, but here are the configuration options:
@@ -53,11 +54,26 @@ Right now there's only support for Sprockets, but leaving the option open for ot
 
 # How?
 
-First you need to have a config file, it's location should be set in the pubba_config setting:
+First things first, you'll want to install the gem:
 
-    set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
+    gem install pubba
 
-Here's an example file:
+Then you'll want to use it in your app like so:
+
+    require 'sinatra/pubba'
+
+    class App < Sinatra::Application
+      # Settings as described above
+      set :asset_folder, File.join(settings.root, 'assets')
+      set :public_folder, File.join(settings.root, '..', 'public')
+      set :r18n_folder, File.join(settings.root, 'i18n')
+
+      set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
+
+      register Sinatra::Pubba
+    end
+
+Next up is creating the all important `pubba.yml` config file:
 
     global:
       styles:
