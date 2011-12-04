@@ -94,6 +94,18 @@ If you're using R18n, you will need a translation file, here's a sample en.yml:
     home_link: "Home"
     account_link: "My Account"
 
+Take note of the `home` section in both `pubba.yml` and `en.yml`. If you have a route in your app that you want to use the `home` defintions, do this:
+
+    get '/' do
+      @page = Sinatra::Pubba::Site.page('home')
+      slim :"aux/index"
+    end
+
+Now here's what you get...
+
+* Tag helpers
+** `page_head_tags`
+
 
 # Acknowledgement
 
