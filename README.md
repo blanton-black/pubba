@@ -48,6 +48,7 @@ Right now there's only support for Sprockets, but leaving the option open for ot
     set :r18n_locale, 'en'
 
 
+
 # How?
 
 First you need to have a config file, it's location should be set in the pubba_config setting:
@@ -80,10 +81,24 @@ The config file is referencing the javascripts and stylesheets folders located i
 
     set :asset_folder, File.join(settings.root, 'assets')
 
+If you're using R18n, you will need a translation file, here's a sample en.yml:
 
+    home:
+      title: "Home title"
+      meta_description: "Home meta description"
+      meta_keywords: "Home keywords"
+      welcome_text: "Welcome Home"
+
+    logout_link: "Logout"
+    login_link: "Login"
+    home_link: "Home"
+    account_link: "My Account"
 
 
 # Acknowledgement
 
 Huge thanks to my company, [Primedia](http://primedia.com) for encouraging open source contributions. This particular extension is obviously very new and hasn't hit a production site yet, but it will. I will post a list here as we migrate our applications from Rails to Sinatra.
 
+# Contributors
+
+List coming soon...
