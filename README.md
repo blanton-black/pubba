@@ -86,14 +86,14 @@ Next up is creating the all important __pubba.yml__ config file:
         - "custom/application"
 
     # Home page configuration
-      home:
-        styles:
-          - "custom/home"
+    home:
+      styles:
+        - "custom/home"
 
     # Search results page configuration
-      search:
-        styles:
-          - "custom/search"
+    search:
+      styles:
+        - "custom/search"
 
 The config file is referencing the javascripts and stylesheets folders located in the `asset_folder`.
 
