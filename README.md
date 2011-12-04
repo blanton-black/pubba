@@ -101,14 +101,13 @@ Take note of the `home` section in both `pubba.yml` and `en.yml`. If you have a 
       slim :"aux/index"
     end
 
-Now here's what you get...
+# Helpers
 
 * Tag helpers
     * `page_head_tags`
       This helper emits the `link` and `script` tags with the contents defined in `pubba.yml`
     * `page_body_tags`
-      This helper emits the `script` tag with the contents defined in `pubba.yml`
-      This helper emits the `link` and `script` tags needed for your app to make use of
+      This helper emits the `script` tag with the contents defined in `pubba.yml`. You would typically place this just before the `</body>` tag.
 
 
 # Acknowledgement
