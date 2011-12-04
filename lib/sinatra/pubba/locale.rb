@@ -13,6 +13,6 @@ module Sinatra
 
         R18n::Untranslated === res ? nil : res
       end
-    end
-  end
-end
+    end # Locale
+  end # Pubba
+end # Sinatra
