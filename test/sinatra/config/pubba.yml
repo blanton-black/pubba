@@ -1,20 +1,39 @@
-# Global configuration. Settings here will be applied to all pages.
 global:
   styles:
-    - "custom/global"
-  head_scripts:
-    - "third-party/jq"
-  body_scripts:
-    - "third-party/jqc"
-    - "custom/app"
+    all:
+      urls:
+        - "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"
+        - "custom/global"
+    phone:
+      media: "only screen and (max-width: 480px)"
+      urls:
+        - "custom/small"
+    desktop:
+      media: "only screen and (min-width: 480px)"
+      urls:
+        - "custom/large"
+  scripts:
+    head:
+      - "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      - "third-party/modernizr"
+    body:
+      - "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
+      - "third-party/backbone"
+      - "custom/app"
+      - "custom/tracker"
 
-# Home page configuration
 home:
   styles:
-    - "custom/home"
+    all:
+      urls:
+        - "custom/home"
 
-# Search page configuration
 search:
   styles:
-    - "custom/search"
-    - "third-party/widget"
+    all:
+      urls:
+        - "custom/search"
+        - "third-party/widget"
+  scripts:
+    body:
+      - "custom/lightbox"

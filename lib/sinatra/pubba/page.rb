@@ -8,17 +8,34 @@ module Sinatra
         @name = name
         @assets = {}
 
-        Site.asset_types.keys.each do |asset|
-          @assets[asset] = global_configuration[asset] || []
+        ["styles", "scripts"].each do |asset|
+          @assets[asset] = {}
+          global_configuration[asset].each do |key, value|
+            @assets[asset][key] = value
+          end
         end
       end
 
-      def add_asset(name, array)
-        assets[name] += array unless array.empty?
+      def add_asset(name, section)
+        if name == "styles"
+           section.each do |section_name, hsh|
+             hsh.each do |key, value|
+              if key == "urls"
+                @assets[name][section_name][key] += value
+              else
+                @assets[name][section_name][key] = value
+              end
+            end
+          end
+        else
+          @assets["scripts"]["head"] += section["head"] if section["head"]
+          @assets["scripts"]["body"] += section["body"] if section["body"]
+        end
       end
 
       def assetize
-        Site.asset_types.each{ |key, val| create_asset(key, val) }
+        create_asset('styles', Site.style_asset_folder)
+        create_asset('scripts', Site.script_asset_folder)
       end
 
       def method_missing(meth, *args)

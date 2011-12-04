@@ -14,4 +14,8 @@ class TestPubbaPage < TestPubba
     assert_equal 'Search title', page.title
     assert_equal 'Logout', page.logout_link
   end
+
+  def test_home_js_asset
+    #js = File.open( File.join(R.asset_folder, 'home-head-scripts
+  end
 end

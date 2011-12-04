@@ -42,12 +42,12 @@ class TestPubba < MiniTest::Unit::TestCase
 
       register Sinatra::Pubba
 
-      get('/home-page-head-tags') do 
+      get('/home-page-head-tags') do
         @page = Sinatra::Pubba::Site.page('home');
         page_head_tags
       end
-      
-      get('/home-page-body-tags') do 
+
+      get('/home-page-body-tags') do
         @page = Sinatra::Pubba::Site.page('home');
         page_body_tags
       end
