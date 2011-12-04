@@ -104,7 +104,7 @@ Take note of the `home` section in both `pubba.yml` and `en.yml`. If you have a 
 Now here's what you get...
 
 * Tag helpers
-** `page_head_tags`
+    * `page_head_tags`
 
 
 # Acknowledgement
