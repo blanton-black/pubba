@@ -6,6 +6,8 @@ pubba is a Sinatra extension designed to help you manage your site. It uses [Spr
 
 This extension is under heavy, heavy development and is subject to massive changes over the next week or so.
 
+__I do not consider this project production ready at this time. It will be soon though.__
+
 TODO:
 
 * Support 3rd part script tags in pubba.yml
