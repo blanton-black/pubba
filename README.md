@@ -27,7 +27,7 @@ This does the require the use of a cache bursting query parameter to be added to
 
 More details on these later, but here are the configuration options:
 
-**Note: `settings.root` refers to \<ProjectRoot\>/app/**
+**Note: __settings.root__ refers to \<ProjectRoot\>/app/**
 
 ### Location of the config file. REQUIRED
     set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
@@ -95,7 +95,7 @@ If you're using R18n, you will need a translation file, here's a sample en.yml:
     home_link: "Home"
     account_link: "My Account"
 
-Take note of the *home* section in both *pubba.yml* and *en.yml*. If you have a route in your app that you want to use the *home* defintions, do this:
+Take note of the __home__ section in both __pubba.yml__ and __en.yml__. If you have a route in your app that you want to use the __home__ defintions, do this:
 
     get '/' do
       @page = Sinatra::Pubba::Site.page('home')
@@ -106,9 +106,9 @@ Take note of the *home* section in both *pubba.yml* and *en.yml*. If you have a 
 
 * Tag helpers
     * `page_head_tags`
-      This helper emits the `link` and `script` tags with the contents defined in `pubba.yml`
+      This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
     * `page_body_tags`
-      This helper emits the `script` tag with the contents defined in `pubba.yml`. You would typically place this just before the `</body>` tag.
+      This helper emits the `script` tag with the contents defined in __pubba.yml__. You would typically place this just before the `</body>` tag.
 
 
 # Acknowledgement
