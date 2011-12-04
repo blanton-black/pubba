@@ -111,15 +111,24 @@ The `@page` variable gives you access to the definitions in __en.yml__. In your 
         menu
           a href="/" = @page.home_link
 
-Notice that `title` is defined under the home section, but home_link is a top level definition. Pubba makes the effort to correctly resolve the __en.yml__ reference for you. Nice isn't it.
+Notice that `title` is defined under the `home` section, but `home_link` is a top level definition. Pubba makes the effort to correctly resolve the __en.yml__ reference for you. Nice isn't it.
 
-# Helpers
-
-* Tag helpers
+Now you obviouslly need some helpers to make use of the definitions in __pubba.yml__, and here they are:
     * `page_head_tags`
       This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
     * `page_body_tags`
       This helper emits the `script` tag with the contents defined in __pubba.yml__. You would typically place this just before the `</body>` tag.
+
+Sample use:
+
+    html
+      head
+        title = @page.title
+        == page_head_tags
+      body
+        menu
+          a href="/" = @page.home_link
+        == page_body_tags
 
 
 # Acknowledgement
