@@ -11,7 +11,7 @@ module Sinatra
         end
 
         def global_config!
-          yaml.delete("global")
+          yaml.delete("global") || {}
         end
 
         def process

@@ -11,7 +11,7 @@ module Sinatra
         ["styles", "scripts"].each do |asset|
           @assets[asset] = {}
           global_configuration[asset].each do |key, value|
-            @assets[asset][key] = value
+            @assets[asset][key] = value.dup
           end
         end
       end

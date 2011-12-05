@@ -60,7 +60,7 @@ TEXT
 //
 //= require custom/global.css
 //= require custom/search.css
-//= require thirdy-party/widget.css
+//= require third-party/widget.css
 TEXT
 
     assert_equal contents.chomp, css

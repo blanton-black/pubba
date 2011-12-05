@@ -6,14 +6,11 @@ module Sinatra
   module Pubba
     module Site
       extend self
-      attr_accessor :global_asset_configuration, :asset_handler
-
       attr_reader :script_asset_folder, :style_asset_folder
       attr_reader :script_public_folder, :style_public_folder
 
-      attr_reader :disclaimer
-
-      attr_reader :locale, :r18n_folder, :r18n_locale
+      attr_reader :global_asset_configuration, :asset_handler
+      attr_reader :disclaimer, :locale, :r18n_folder, :r18n_locale
 
 
       def configure(app)
@@ -123,8 +120,6 @@ module Sinatra
           asset.save_as "#{to_folder}/#{File.basename(file)}"
         end
       end
-
-    @global_asset_configuration = {}
     end # Site
   end # Pubba
 end # Sinatra
