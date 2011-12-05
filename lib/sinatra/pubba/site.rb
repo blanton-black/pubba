@@ -35,8 +35,8 @@ module Sinatra
         @global_asset_configuration = asset_configuration.global_config!
 
         # Process the remaining @pubba_config sections
-        asset_configuration.process do |page, config|
-          add_page(page, config).assetize
+        asset_configuration.process do |p, config|
+          add_page(p, config).assetize
         end
 
         # Write assets to public_folder
@@ -101,13 +101,13 @@ module Sinatra
         @pages ||= {}
       end
 
-      def add_page(name, hash)
-        page = Page.new(name, global_asset_configuration)
+      def add_page(name, hsh)
+        p = Page.new(name, @global_asset_configuration)
 
-        page.add_asset('styles', hash['styles']) if hash['styles']
-        page.add_asset('scripts', hash['scripts']) if hash['scripts']
+        p.add_asset('styles', hsh['styles']) if hsh['styles']
+        p.add_asset('scripts', hsh['scripts']) if hsh['scripts']
 
-        pages[name] = page
+        pages[name] = p
       end
 
       private

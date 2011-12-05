@@ -16,14 +16,14 @@ module Sinatra
         end
       end
 
-      def add_asset(name, section)
-        if name == "styles"
+      def add_asset(type, section)
+        if type == "styles"
            section.each do |section_name, hsh|
              hsh.each do |key, value|
               if key == "urls"
-                @assets[name][section_name][key] += value
+                @assets[type][section_name][key] += value
               else
-                @assets[name][section_name][key] = value
+                @assets[type][section_name][key] = value
               end
             end
           end
@@ -34,8 +34,8 @@ module Sinatra
       end
 
       def assetize
-        create_asset('styles', Site.style_asset_folder)
-        create_asset('scripts', Site.script_asset_folder)
+        create_style_assets
+        create_script_assets
       end
 
       def method_missing(meth, *args)
@@ -53,15 +53,33 @@ module Sinatra
         array.each{|ele| scripts << ele }
       end
 
-      def create_asset(asset, dir)
-        type = asset.split('_').first
-        ext  = asset.end_with?('styles') ? 'css' : 'js'
-
-        File.open( File.join(dir, "#{name}-#{type}.#{ext}"), 'w') do |f|
-          f.write Site.disclaimer
-          assets[asset].each do |script|
-            f.write "//= require #{script}.#{ext}\n"
+      def create_style_assets
+        @assets["styles"].each do |part, hsh|
+          content = []
+          @assets["styles"][part]["urls"].each do |url|
+            next if url.start_with?("http")
+            content << "//= require #{url}.css"
           end
+          write_asset(Site.style_asset_folder, part, "css", content.compact.join("\n"))
+        end
+      end
+
+      def create_script_assets
+        ["head", "body"].each do |part|
+          content = []
+          @assets["scripts"][part].each do |url|
+            next if url.start_with?("http")
+            content << "//= require #{url}.js"
+          end
+          write_asset(Site.script_asset_folder, part, "js", content.compact.join("\n"))
+        end
+      end
+
+      def write_asset(dir, type, ext, content)
+        fname = File.join(dir, "#{name}-#{type}.#{ext}")
+        File.open(fname, 'w') do |f|
+          f.write Site.disclaimer
+          f.write content
         end
       end
     end # Page
