@@ -13,14 +13,16 @@ module Sinatra
           end
         end
 
+        private
+
         def self.get_compressor(handler)
           case handler
-            when :js then YUI::JavaScriptCompressor.new(:munge => true)
+            when :js then YUI::JavaScriptCompressor.new
             when :css then YUI::CssCompressor.new
             else raise ArgumentError, "minify handler must be one of [:js, :css]"
           end
         end
-      end # YUICompressor
+      end # YUIMinifier
     end # Assets
   end # Pubba
 end # Sinatra

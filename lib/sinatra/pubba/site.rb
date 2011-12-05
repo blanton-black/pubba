@@ -10,7 +10,7 @@ module Sinatra
       attr_reader :script_asset_folder, :style_asset_folder
       attr_reader :script_public_folder, :style_public_folder
 
-      attr_reader :global_asset_configuration, :asset_handler, :asset_compressor
+      attr_reader :global_asset_configuration, :asset_handler, :asset_minifier
       attr_reader :disclaimer, :locale, :r18n_folder, :r18n_locale
 
 
@@ -97,9 +97,9 @@ module Sinatra
       end
 
       def configure_asset_compressor(settings)
-        @asset_compressor = Sinatra::Pubba::Assets::YUIMinifier
-        if settings.respond_to?(:asset_compressor) && (compressor = settings.asset_compressor)
-          @asset_compressor = compressor
+        @asset_minifier = Sinatra::Pubba::Assets::YUIMinifier
+        if settings.respond_to?(:asset_minifier) && (minifier = settings.asset_minifier)
+          @asset_minifier = minifier
         end
       end
 
@@ -135,8 +135,8 @@ module Sinatra
       end
 
       def minify_assets(app)
-        asset_compressor.minify(script_public_folder, :js)
-        asset_compressor.minify(style_public_folder, :css)
+        asset_minifier.minify(script_public_folder, :js)
+        asset_minifier.minify(style_public_folder, :css)
       end
     end # Site
   end # Pubba

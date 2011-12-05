@@ -5,6 +5,10 @@ class TestPubbaSite < TestPubba
     assert_equal Sinatra::Pubba::Assets::SprocketsHandler, Sinatra::Pubba::Site.asset_handler
   end
 
+  def test_asset_handler_initialization
+    assert_equal Sinatra::Pubba::Assets::YUIMinifier, Sinatra::Pubba::Site.asset_minifier
+  end
+
   def test_script_public_folder_initialization
     assert_equal "#{R.public_folder}/javascripts", Sinatra::Pubba::Site.script_public_folder
   end
