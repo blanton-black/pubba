@@ -2,18 +2,20 @@ module Sinatra
   module Pubba
     class Page
       attr_accessor :name
-      attr_reader :assets
+      attr_reader :assets, :head_tags, :body_tags
 
       def initialize(name, global_configuration = {})
         @name = name
-        @assets = {}
+        @assets = {"styles" => {}, "scripts" => {}}
+        @head_tags = []
+        @body_tags = []
 
-        ["styles", "scripts"].each do |asset|
-          @assets[asset] = {}
-          global_configuration[asset].each do |key, value|
-            @assets[asset][key] = value.dup
-          end
+        global_configuration["styles"].each do |key, value|
+            @assets["styles"][key] = value.dup
         end
+
+        @assets["scripts"]["head"] = global_configuration["scripts"]["head"] || []
+        @assets["scripts"]["body"] = global_configuration["scripts"]["body"] || []
       end
 
       def add_asset(type, section)
@@ -57,6 +59,7 @@ module Sinatra
         @assets["styles"].each do |part, hsh|
           content = []
           @assets["styles"][part]["urls"].each do |url|
+            add_style_tag(part, hsh, url)
             next if url.start_with?("http")
             content << "//= require #{url}.css"
           end
@@ -68,11 +71,33 @@ module Sinatra
         ["head", "body"].each do |part|
           content = []
           @assets["scripts"][part].each do |url|
+            add_script_tag(part, url)
             next if url.start_with?("http")
             content << "//= require #{url}.js"
           end
           write_asset(Site.script_asset_folder, part, "js", content.compact.join("\n"))
         end
+      end
+
+      def add_style_tag(part, hsh, url)
+        hsh       = { tag: 'link', media: hsh['media'] }
+        hsh[:href] = url.start_with?("http") ? url : "/stylesheets/#{name}-#{part}.css"
+
+        @head_tags << hsh
+      end
+
+      def add_script_tag(part, url)
+        hsh       = { tag: 'script' }
+        hsh[:src] = url.start_with?("http") ? url : "/javascripts/#{name}-#{part}.js"
+
+        tag_set = (part == "head") ? @head_tags : @body_tags
+        maybe_add_script_tag(tag_set, hsh)
+      end
+
+      def maybe_add_script_tag(tag_set, hsh)
+        found = false
+        tag_set.each{|tag| found = true if tag[:src] == hsh[:src]}
+        tag_set << hsh unless found
       end
 
       def write_asset(dir, type, ext, content)
