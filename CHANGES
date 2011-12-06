@@ -1,5 +1,7 @@
 master
 
+0.2.0
+
   * Ability to add external references
   * Ability to add media query requirement to styles
 
