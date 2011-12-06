@@ -88,11 +88,11 @@ module Sinatra
       end
 
       def add_script_tag(part, url)
-        hsh = { tag: 'script', type: "text/javascript" }
-        hsh[:src]   = url.start_with?("http") ? url : "/javascripts/#{name}-#{part}.js"
+        h = { tag: 'script', type: "text/javascript" }
+        h[:src]   = url.start_with?("http") ? url : "/javascripts/#{name}-#{part}.js"
 
         tag_set = (part == "head") ? @head_tags : @body_tags
-        maybe_add_tag(tag_set, hsh, :src)
+        maybe_add_tag(tag_set, h, :src)
       end
 
       def maybe_add_tag(tag_set, hsh, key)
