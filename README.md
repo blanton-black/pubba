@@ -144,6 +144,15 @@ Sample use:
 
 What you'll see when working with pubba is that the files in your `asset_folder` are never referenced in your view. Even in development mode! The intent is that development mode is as close to production mode as possible. So, you are working with the same combined asset file you will be deploying.
 
+Using the above section, if you are using the 'home' page definition, the output of `page_head_tags` will be (formatted for the README):
+    <link href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+    <link href="/stylesheets/home-all.css" rel="stylesheet" type="text/css"></link>
+    <link href="/stylesheets/home-phone.css" media="only screen and (max-width: 480px)" rel="stylesheet" type="text/css"></link>
+    <link href="/stylesheets/home-desktop.css" media="only screen and (min-width: 480px)" rel="stylesheet" type="text/css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/javascripts/home-head.js" type="text/javascript"></script>|
+
+
 # R18n
 
 If you're using R18n, you will need a translation file, here's a sample en.yml:
