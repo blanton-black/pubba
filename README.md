@@ -124,6 +124,30 @@ Next up is creating the all important __pubba.yml__ config file:
 
 The config file is referencing the javascripts and stylesheets located in the `asset_folder`.
 
+Now you obviouslly need some helpers to make use of the definitions in __pubba.yml__, and here they are:
+
+* `page_head_tags`
+  * This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
+* `page_body_tags`
+  * This helper emits the `script` tag with the contents defined in __pubba.yml__. You would typically place this just before the `</body>` tag.
+* `burst(url)`
+  * This helper simply appends a cache bursting parameter named `aid` to the end of the url. In development mode the `aid` value is updated per request. The intent is to help with the particularly aggressive caching Google's Chrome browser likes to implement. In production mode, pubba requires `ENV[ASSET_ID]` to be set and uses this for the `aid` value. I expect this to be tweaked as I get further into implementation.
+
+Sample use:
+
+    html
+      head
+        title = @page.title
+        == page_head_tags
+      body
+        menu
+          a href="/" = @page.home_link
+        == page_body_tags
+
+What you'll see when working with pubba is that the files in your `asset_folder` are never referenced in your view. Even in development mode! The intent is that development mode is as close to production mode as possible. So, you are working with the same combined asset file you will be deploying.
+
+# R18n
+
 If you're using R18n, you will need a translation file, here's a sample en.yml:
 
     home:
@@ -154,28 +178,6 @@ The `@page` variable gives you access to the definitions in __en.yml__. In your 
           a href="/" = @page.home_link
 
 Notice that `title` is defined under the `home` section, but `home_link` is a top level definition. Pubba makes the effort to correctly resolve the __en.yml__ reference for you. Nice isn't it.
-
-Now you obviouslly need some helpers to make use of the definitions in __pubba.yml__, and here they are:
-
-* `page_head_tags`
-  * This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
-* `page_body_tags`
-  * This helper emits the `script` tag with the contents defined in __pubba.yml__. You would typically place this just before the `</body>` tag.
-* `burst(url)`
-  * This helper simply appends a cache bursting parameter named `aid` to the end of the url. In development mode the `aid` value is updated per request. The intent is to help with the particularly aggressive caching Google's Chrome browser likes to implement. In production mode, pubba requires `ENV[ASSET_ID]` to be set and uses this for the `aid` value. I expect this to be tweaked as I get further into implementation.
-
-Sample use:
-
-    html
-      head
-        title = @page.title
-        == page_head_tags
-      body
-        menu
-          a href="/" = @page.home_link
-        == page_body_tags
-
-What you'll see when working with pubba is that the files in your `asset_folder` are never referenced in your view. Even in development mode! The intent is that development mode is as close to production mode as possible. So, you are working with the same combined asset file you will be deploying.
 
 # Acknowledgement
 
