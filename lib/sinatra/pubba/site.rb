@@ -37,7 +37,7 @@ module Sinatra
         end
 
         # Write assets to public_folder
-        # compile_assets(app)
+        compile_assets(app)
       end
 
 
