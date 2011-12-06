@@ -3,26 +3,17 @@ module Sinatra
     module HTML
       module Helpers
         def page_head_tags
-
-          tags = @page.head_tags.collect do |hsh|
-            if hsh[:tag] == "link"
-              hsh[:rel] = "stylesheet"
-              hsh[:type] = "text/css"
-            else
-              hsh[:type] = "text/javascript"
-            end
-            hsh
-          end
-
-          puts tags.inspect
-          tags.collect do |tag|
+          @page.head_tags.collect do |tag|
             type = tag.delete(:tag)
             tag_content(type, '', tag)
           end
         end
 
         def page_body_tags
-          tag_content('script', '', { src: burst("/javascripts/#{@page.name}-body.js"), type: "text/javascript" })
+          @page.body_tags.collect do |tag|
+            type = tag.delete(:tag)
+            tag_content(type, '', tag)
+          end
         end
 
         def burst(url)
@@ -38,9 +29,9 @@ module Sinatra
         def tag_attrs(attrs)
           return '' if attrs.empty?
 
-          return " " + attrs.collect do |k,v|
-            %|#{k}="#{v}"| unless v.nil?
-          end.compact.join(' ')
+          return " " + attrs.keys.sort.collect do |k|
+            %|#{k}="#{attrs[k]}"|
+          end.join(' ')
         end
       end
     end # HTML

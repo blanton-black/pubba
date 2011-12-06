@@ -80,23 +80,24 @@ module Sinatra
       end
 
       def add_style_tag(part, hsh, url)
-        hsh       = { tag: 'link', media: hsh['media'] }
-        hsh[:href] = url.start_with?("http") ? url : "/stylesheets/#{name}-#{part}.css"
+        h = { tag: 'link', type: 'text/css', rel: 'stylesheet' }
+        h[:media] = hsh['media'] if hsh['media']
+        h[:href]  = url.start_with?("http") ? url : "/stylesheets/#{name}-#{part}.css"
 
-        @head_tags << hsh
+        maybe_add_tag(@head_tags, h, :href)
       end
 
       def add_script_tag(part, url)
-        hsh       = { tag: 'script' }
-        hsh[:src] = url.start_with?("http") ? url : "/javascripts/#{name}-#{part}.js"
+        hsh = { tag: 'script', type: "text/javascript" }
+        hsh[:src]   = url.start_with?("http") ? url : "/javascripts/#{name}-#{part}.js"
 
         tag_set = (part == "head") ? @head_tags : @body_tags
-        maybe_add_script_tag(tag_set, hsh)
+        maybe_add_tag(tag_set, hsh, :src)
       end
 
-      def maybe_add_script_tag(tag_set, hsh)
+      def maybe_add_tag(tag_set, hsh, key)
         found = false
-        tag_set.each{|tag| found = true if tag[:src] == hsh[:src]}
+        tag_set.each{|tag| found = true if tag[key] == hsh[key]}
         tag_set << hsh unless found
       end
 
