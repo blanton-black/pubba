@@ -130,8 +130,6 @@ Now you obviouslly need some helpers to make use of the definitions in __pubba.y
   * This helper emits the `link` and `script` tags with the contents defined in __pubba.yml__
 * `page_body_tags`
   * This helper emits the `script` tag with the contents defined in __pubba.yml__. You would typically place this just before the `</body>` tag.
-* `burst(url)`
-  * This helper simply appends a cache bursting parameter named `aid` to the end of the url. In development mode the `aid` value is updated per request. The intent is to help with the particularly aggressive caching Google's Chrome browser likes to implement. In production mode, pubba requires `ENV[ASSET_ID]` to be set and uses this for the `aid` value. I expect this to be tweaked as I get further into implementation.
 
 Sample use:
 
