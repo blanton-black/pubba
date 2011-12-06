@@ -3,22 +3,23 @@ module Sinatra
     module HTML
       module Helpers
         def page_head_tags
-          @page.head_tags.collect do |tag|
-            type = tag.delete(:tag)
-            tag_content(type, '', tag)
+          tags = []
+          @page.head_tags.each do |tag|
+            t = tag.dup
+            type = t.delete(:tag)
+            tags << tag_content(type, '', t)
           end
+          tags.join('')
         end
 
         def page_body_tags
-          @page.body_tags.collect do |tag|
-            type = tag.delete(:tag)
-            tag_content(type, '', tag)
+          tags = []
+          @page.body_tags.dup.each do |tag|
+            t = tag.dup
+            type = t.delete(:tag)
+            tags << tag_content(type, '', t)
           end
-        end
-
-        def burst(url)
-          joiner = url.include?("?") ? "&" : "?"
-          "#{url}#{joiner}aid=#{settings.asset_id}"
+          tags.join('')
         end
 
         def tag_content(tag, content, attrs={}, self_closing=false)
