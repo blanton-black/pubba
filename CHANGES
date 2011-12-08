@@ -1,5 +1,20 @@
 master
 
+  * Update disclaimer so it doesn't include the full path.
+  * Move processing of assets to before filter in dev and test mode
+
+0.2.3
+
+  * Remove asset_id functionality. Dead code causing bugs.
+
+0.2.2
+
+  * Asset compilation fix
+
+0.2.1
+
+  * page_head_tags and page_body_tags implemented
+
 0.2.0
 
   * Ability to add external references
