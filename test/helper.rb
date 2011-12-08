@@ -42,6 +42,10 @@ class TestPubba < MiniTest::Unit::TestCase
 
       register Sinatra::Pubba
 
+      get('/') do
+        'OK'
+      end
+
       get('/home-page-head-tags') do
         @page = Sinatra::Pubba::Site.page('home');
         page_head_tags
@@ -52,18 +56,8 @@ class TestPubba < MiniTest::Unit::TestCase
         page_body_tags
       end
     end
-  end
 
-  def teardown
-    [R.asset_folder, R.public_folder].each do |root_folder|
-      Dir.glob(File.join(root_folder, 'javascripts', '*.js')) do |f|
-        File.delete(f) if File.exist?(f)
-      end
-
-      Dir.glob(File.join(root_folder, 'stylesheets', '*.css')) do |f|
-        File.delete(f) if File.exist?(f)
-      end
-    end
+    get '/'
   end
 
   def empty_hash
