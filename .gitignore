@@ -12,3 +12,7 @@ Gemfile.lock
 doc
 coverage
 pkg
+
+test/sinatra/app/assets/javascripts
+test/sinatra/app/assets/stylesheets
+test/sinatra/public
