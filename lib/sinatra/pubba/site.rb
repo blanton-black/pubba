@@ -1,5 +1,6 @@
 require_relative 'assets/configuration'
 require_relative 'assets/sprockets_handler'
+require_relative 'assets/yui_minifier'
 require_relative 'page'
 
 module Sinatra
@@ -9,7 +10,7 @@ module Sinatra
       attr_reader :script_asset_folder, :style_asset_folder
       attr_reader :script_public_folder, :style_public_folder
 
-      attr_reader :global_asset_configuration, :asset_handler
+      attr_reader :global_asset_configuration, :asset_handler, :asset_minifier
       attr_reader :disclaimer, :locale, :r18n_folder, :r18n_locale
 
 
@@ -28,6 +29,9 @@ module Sinatra
         # Set assset handler
         configure_asset_handler(settings)
 
+        # Set compressor
+        configure_asset_compressor(settings)
+
         # Grab the global section defined in @pubba_config
         @global_asset_configuration = asset_configuration.global_config!
 
@@ -38,6 +42,8 @@ module Sinatra
 
         # Write assets to public_folder
         compile_assets(app)
+
+        minify_assets(app)
       end
 
 
@@ -90,6 +96,13 @@ module Sinatra
         @asset_handler.asset_paths style_asset_folder, script_asset_folder
       end
 
+      def configure_asset_compressor(settings)
+        @asset_minifier = Sinatra::Pubba::Assets::YUIMinifier
+        if settings.respond_to?(:asset_minifier) && (minifier = settings.asset_minifier)
+          @asset_minifier = minifier
+        end
+      end
+
       def page(name)
         pages[name]
       end
@@ -119,6 +132,11 @@ module Sinatra
           asset = asset_handler.find(file)
           asset.save_as "#{to_folder}/#{File.basename(file)}"
         end
+      end
+
+      def minify_assets(app)
+        asset_minifier.minify(script_public_folder, :js)
+        asset_minifier.minify(style_public_folder, :css)
       end
     end # Site
   end # Pubba
