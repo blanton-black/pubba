@@ -1,5 +1,9 @@
 master
 
+0.3.0
+
+  * Include YUICompressor processing of stylesheets and javascripts
+  * Update to r18n-desktop 0.4.13 to address require issue
   * Update disclaimer so it doesn't include the full path.
   * Move processing of assets to before filter in dev and test mode
 
