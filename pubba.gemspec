@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
 
   s.add_runtime_dependency('sprockets', ['~> 2.1.2'])
-  s.add_runtime_dependency('r18n-desktop', ['~> 0.4.11'])
+  s.add_runtime_dependency('r18n-desktop', ['~> 0.4.13'])
   s.add_runtime_dependency('yui-compressor', ['>= 0.9.4'])
 
   s.add_development_dependency('rake', ['>= 0.9.2'])
