@@ -2,7 +2,6 @@ require_relative 'assets/configuration'
 require_relative 'assets/sprockets_handler'
 require_relative 'assets/yui_minifier'
 require_relative 'page'
-require_relative 'monitor'
 
 module Sinatra
   module Pubba
@@ -47,6 +46,8 @@ module Sinatra
 
         if app.settings.development? || app.settings.test?
           process
+
+          require_relative 'monitor'
           Monitor.do
         end
 
@@ -54,9 +55,7 @@ module Sinatra
       end
 
       def process
-        pages.each do |name, p|
-          p.assetize
-        end
+        pages.each{|name, p| p.assetize }
         compile_assets
         minify_assets
       end
