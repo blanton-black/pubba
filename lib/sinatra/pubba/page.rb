@@ -104,7 +104,7 @@ module Sinatra
       def write_asset(dir, type, ext, content)
         fname = File.join(dir, "#{name}-#{type}.#{ext}")
         File.open(fname, 'w') do |f|
-          f.write Site.disclaimer
+          f.write Site.asset_configuration.disclaimer
           f.write content
         end
       end
