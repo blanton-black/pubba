@@ -2,11 +2,13 @@ require_relative 'assets/configuration'
 require_relative 'assets/sprockets_handler'
 require_relative 'assets/yui_minifier'
 require_relative 'page'
+require_relative 'monitor'
 
 module Sinatra
   module Pubba
     module Site
       extend self
+      attr_reader :asset_folder
       attr_reader :script_asset_folder, :style_asset_folder
       attr_reader :script_public_folder, :style_public_folder
 
@@ -15,6 +17,10 @@ module Sinatra
 
 
       def configure(app)
+        return if @configured
+
+        puts "Configuring Pubba..."
+
         settings = app.settings
 
         validate_settings(settings)
@@ -38,19 +44,22 @@ module Sinatra
         asset_configuration.process do |p, config|
           add_page(p, config)
         end
+
+        if app.settings.development? || app.settings.test?
+          process
+          Monitor.do
+        end
+
+        @configured = true
       end
 
-      def process(app)
+      def process
         pages.each do |name, p|
           p.assetize
         end
-
-        # Write assets to public_folder
-        compile_assets(app)
-
-        minify_assets(app)
+        compile_assets
+        minify_assets
       end
-
 
       def validate_settings(settings)
         missing_settings = []
@@ -71,8 +80,9 @@ module Sinatra
       def set_folder_defaults(settings)
         @script_public_folder = File.join(settings.public_folder, 'javascripts')
         @style_public_folder  = File.join(settings.public_folder, 'stylesheets')
-        @script_asset_folder  = File.join(settings.asset_folder, 'javascripts')
-        @style_asset_folder   = File.join(settings.asset_folder, 'stylesheets')
+        @asset_folder         = settings.asset_folder
+        @script_asset_folder  = File.join(@asset_folder, 'javascripts')
+        @style_asset_folder   = File.join(@asset_folder, 'stylesheets')
       end
 
       def maybe_init_r18n(settings)
@@ -125,7 +135,7 @@ module Sinatra
 
       private
 
-      def compile_assets(app)
+      def compile_assets
         process_assets(script_asset_folder, script_public_folder)
         process_assets(style_asset_folder, style_public_folder)
       end
@@ -137,7 +147,7 @@ module Sinatra
         end
       end
 
-      def minify_assets(app)
+      def minify_assets
         asset_minifier.minify(script_public_folder, :js)
         asset_minifier.minify(style_public_folder, :css)
       end
