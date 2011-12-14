@@ -14,14 +14,15 @@ module Sinatra
             @assets["styles"][key] = value.dup
         end
 
-        @assets["scripts"]["head"] = global_configuration["scripts"]["head"] || []
-        @assets["scripts"]["body"] = global_configuration["scripts"]["body"] || []
+        script_groups do |group|
+          @assets["scripts"][group] = global_configuration["scripts"][group] || []
+        end
       end
 
       def add_asset(type, section)
         if type == "styles"
-           section.each do |section_name, hsh|
-             hsh.each do |key, value|
+           section.each do |section_name, hash|
+             hash.each do |key, value|
               if key == "urls"
                 @assets[type][section_name][key] += value
               else
@@ -30,14 +31,29 @@ module Sinatra
             end
           end
         else
-          @assets["scripts"]["head"] += section["head"] if section["head"]
-          @assets["scripts"]["body"] += section["body"] if section["body"]
+          script_groups do |group|
+            @assets["scripts"][group] += section[group] if section[group]
+          end
         end
       end
 
       def assetize
         create_style_assets
         create_script_assets
+      end
+
+      def tagify
+        style_groups do |group, hash|
+          style_urls(group) do |url|
+            add_style_tag(group, hash, url)
+          end
+        end
+
+        script_groups do |group|
+          script_urls(group) do |url|
+            add_script_tag(group, url)
+          end
+        end
       end
 
       def method_missing(meth, *args)
@@ -56,49 +72,63 @@ module Sinatra
       end
 
       def create_style_assets
-        @assets["styles"].each do |part, hsh|
+        style_groups do |group, hash|
           content = []
-          @assets["styles"][part]["urls"].each do |url|
-            add_style_tag(part, hsh, url)
+          style_urls(group) do |url|
             next if url.start_with?("http")
             content << "//= require #{url}.css"
           end
-          write_asset(Site.style_asset_folder, part, "css", content.compact.join("\n"))
+          write_asset(Site.style_asset_folder, group, "css", content.compact.join("\n"))
         end
       end
 
       def create_script_assets
-        ["head", "body"].each do |part|
+        script_groups do |group|
           content = []
-          @assets["scripts"][part].each do |url|
-            add_script_tag(part, url)
+          script_urls(group) do |url|
             next if url.start_with?("http")
             content << "//= require #{url}.js"
           end
-          write_asset(Site.script_asset_folder, part, "js", content.compact.join("\n"))
+          write_asset(Site.script_asset_folder, group, "js", content.compact.join("\n"))
         end
       end
 
-      def add_style_tag(part, hsh, url)
+      def style_groups
+        @assets["styles"].each{|group, hash| yield group, hash }
+      end
+
+      def style_urls(group)
+        @assets["styles"][group]["urls"].each{|url| yield url }
+      end
+
+      def script_groups
+        ["head", "body"].each{|group| yield group }
+      end
+
+      def script_urls(group)
+        @assets["scripts"][group].each{|url| yield url }
+      end
+
+      def add_style_tag(group, hash, url)
         h = { tag: 'link', type: 'text/css', rel: 'stylesheet' }
-        h[:media] = hsh['media'] if hsh['media']
-        h[:href]  = url.start_with?("http") ? url : "/stylesheets/#{name}-#{part}.css"
+        h[:media] = hash['media'] if hash['media']
+        h[:href]  = url.start_with?("http") ? url : "/stylesheets/#{name}-#{group}.css"
 
         maybe_add_tag(@head_tags, h, :href)
       end
 
-      def add_script_tag(part, url)
+      def add_script_tag(group, url)
         h = { tag: 'script', type: "text/javascript" }
-        h[:src]   = url.start_with?("http") ? url : "/javascripts/#{name}-#{part}.js"
+        h[:src]   = url.start_with?("http") ? url : "/javascripts/#{name}-#{group}.js"
 
-        tag_set = (part == "head") ? @head_tags : @body_tags
+        tag_set = (group == "head") ? @head_tags : @body_tags
         maybe_add_tag(tag_set, h, :src)
       end
 
-      def maybe_add_tag(tag_set, hsh, key)
+      def maybe_add_tag(tag_set, hash, key)
         found = false
-        tag_set.each{|tag| found = true if tag[key] == hsh[key]}
-        tag_set << hsh unless found
+        tag_set.each{|tag| found = true if tag[key] == hash[key]}
+        tag_set << hash unless found
       end
 
       def write_asset(dir, type, ext, content)

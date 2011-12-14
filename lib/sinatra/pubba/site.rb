@@ -127,6 +127,8 @@ module Sinatra
         p.add_asset('styles', hsh['styles']) if hsh['styles']
         p.add_asset('scripts', hsh['scripts']) if hsh['scripts']
 
+        p.tagify
+
         pages[name] = p
       end
 
