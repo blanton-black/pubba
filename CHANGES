@@ -1,5 +1,10 @@
 master
 
+0.4.0
+
+  * Extract page tag creation from asset processing
+  * Replace crappy before filter process in dev/test mode with fssm
+
 0.3.0
 
   * Include YUICompressor processing of stylesheets and javascripts
