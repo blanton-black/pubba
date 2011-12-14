@@ -9,12 +9,6 @@ module Sinatra
     def self.registered(app)
       Site.configure(app)
 
-      if app.settings.development? || app.settings.test?
-        app.before do
-          Site.process(app)
-        end
-      end
-
       app.helpers Sinatra::Pubba::HTML::Helpers
     end
   end # Pubba
