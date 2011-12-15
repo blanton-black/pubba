@@ -3,23 +3,35 @@ module Sinatra
     module HTML
       module Helpers
         def page_head_tags
-          tags = []
-          @page.head_tags.each do |tag|
-            t = tag.dup
-            type = t.delete(:tag)
-            tags << tag_content(type, '', t)
-          end
-          tags.join('')
+          process_tags(@page.head_tags)
         end
 
         def page_body_tags
-          tags = []
-          @page.body_tags.dup.each do |tag|
+          process_tags(@page.body_tags)
+        end
+
+        def digest_url(url)
+          url.start_with?('http') ? url : ::Statica.digest_url(url)
+        end
+
+        private
+
+        def process_tags(tags)
+          array = []
+          tags.each do |tag|
             t = tag.dup
-            type = t.delete(:tag)
-            tags << tag_content(type, '', t)
+            set_url(type = t.delete(:tag), t)
+            array << tag_content(type, '', t)
           end
-          tags.join('')
+          array.join('')
+        end
+
+        def set_url(type, t)
+          if type == 'script'
+            t[:src] = digest_url(t[:src])
+          else
+            t[:href] = digest_url(t[:href])
+          end
         end
 
         def tag_content(tag, content, attrs={}, self_closing=false)

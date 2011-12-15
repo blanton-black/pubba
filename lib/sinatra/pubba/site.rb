@@ -1,3 +1,5 @@
+require 'statica'
+
 require_relative 'assets/configuration'
 require_relative 'assets/sprockets_handler'
 require_relative 'assets/yui_minifier'
@@ -75,6 +77,7 @@ module Sinatra
       end
 
       def set_folder_defaults(settings)
+        Statica.root_dir      = settings.public_folder
         @script_public_folder = File.join(settings.public_folder, 'javascripts')
         @style_public_folder  = File.join(settings.public_folder, 'stylesheets')
         @asset_folder         = settings.asset_folder
