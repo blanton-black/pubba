@@ -12,10 +12,20 @@ module Sinatra
       def start_monitor
         @running = Thread.new do
           puts "Pubba is now monitoring: #{Site.asset_folder}"
-          FSSM.monitor(Site.asset_folder, '**/*', :directories => true) do
-            update {|base, relative, type| Site.process}
-            delete {|base, relative, type| Site.process}
-            create {|base, relative, type| Site.process}
+          FSSM.monitor do
+            path Site.script_asset_folder do
+              glob '**/*'
+              update {|base, relative, type| Site.process}
+              delete {|base, relative, type| Site.process}
+              create {|base, relative, type| Site.process}
+            end
+
+            path Site.style_asset_folder do
+              glob '**/*'
+              update {|base, relative, type| Site.process}
+              delete {|base, relative, type| Site.process}
+              create {|base, relative, type| Site.process}
+            end
           end
         end
       end
