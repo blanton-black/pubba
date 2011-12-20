@@ -1,5 +1,12 @@
 master
 
+0.4.2
+  * Use Rack::StaticaServer
+
+0.4.1
+  * Only monitor source directories
+  * Use Statica diges urls for assets
+
 0.4.0
 
   * Extract page tag creation from asset processing
