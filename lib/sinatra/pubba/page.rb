@@ -73,23 +73,23 @@ module Sinatra
 
       def create_style_assets
         style_groups do |group, hash|
-          content = []
+          urls = []
           style_urls(group) do |url|
             next if url.start_with?("http")
-            content << "//= require #{url}.css"
+            urls << url
           end
-          write_asset(Site.style_asset_folder, group, "css", content.compact.join("\n"))
+          Site.asset_handler.build(name, group, "css", urls)
         end
       end
 
       def create_script_assets
         script_groups do |group|
-          content = []
+          urls = []
           script_urls(group) do |url|
             next if url.start_with?("http")
-            content << "//= require #{url}.js"
+            urls << url
           end
-          write_asset(Site.script_asset_folder, group, "js", content.compact.join("\n"))
+          Site.asset_handler.build(name, group, "js", urls)
         end
       end
 
@@ -129,14 +129,6 @@ module Sinatra
         found = false
         tag_set.each{|tag| found = true if tag[key] == hash[key]}
         tag_set << hash unless found
-      end
-
-      def write_asset(dir, type, ext, content)
-        fname = File.join(dir, "#{name}-#{type}.#{ext}")
-        File.open(fname, 'w') do |f|
-          f.write Site.asset_configuration.disclaimer
-          f.write content
-        end
       end
     end # Page
   end # Pubba

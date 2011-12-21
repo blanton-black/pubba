@@ -9,6 +9,10 @@ module Sinatra
         def save_as(file)
           raise NotImplementedError
         end
+
+        def process(pattern, destination)
+          raise NotImplementedError
+        end
       end # Handler
     end # Assets
   end # Pubba

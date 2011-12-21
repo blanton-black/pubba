@@ -9,13 +9,9 @@ module Sinatra
   module Pubba
     module Site
       extend self
-      attr_reader :asset_folder
-      attr_reader :script_asset_folder, :style_asset_folder
-      attr_reader :script_public_folder, :style_public_folder
-
+      attr_reader :public_folder, :asset_folder, :script_folder, :style_folder
       attr_reader :asset_configuration, :asset_handler, :asset_minifier
       attr_reader :locale, :r18n_folder, :r18n_locale
-
 
       def configure(app)
         return if @configured
@@ -56,8 +52,15 @@ module Sinatra
 
       def process
         pages.each{|name, p| p.assetize }
-        compile_assets
-        minify_assets
+
+        public_script_folder = File.join(public_folder, script_folder)
+        public_style_folder = File.join(public_folder, style_folder)
+
+        asset_handler.process(asset_folder, "*.js",  public_script_folder)
+        asset_handler.process(asset_folder, "*.css", public_style_folder)
+
+        asset_minifier.minify(public_script_folder, :js)
+        asset_minifier.minify(public_style_folder, :css)
       end
 
       def validate_settings(settings)
@@ -77,12 +80,12 @@ module Sinatra
       end
 
       def set_folder_defaults(settings)
-        Statica.root_dir      = settings.public_folder
-        @script_public_folder = File.join(settings.public_folder, 'javascripts')
-        @style_public_folder  = File.join(settings.public_folder, 'stylesheets')
-        @asset_folder         = settings.asset_folder
-        @script_asset_folder  = File.join(@asset_folder, 'javascripts')
-        @style_asset_folder   = File.join(@asset_folder, 'stylesheets')
+        @public_folder    = settings.public_folder
+        @asset_folder     = settings.asset_folder
+        @script_folder    = 'javascripts'
+        @style_folder     = 'stylesheets'
+
+        Statica.root_dir  = settings.public_folder
       end
 
       def maybe_init_r18n(settings)
@@ -106,7 +109,9 @@ module Sinatra
         if settings.respond_to?(:asset_handler) && (handler = settings.asset_handler)
           @asset_handler = handler
         end
-        @asset_handler.asset_paths style_asset_folder, script_asset_folder
+        @asset_handler.asset_paths  asset_folder,
+                                    File.join(asset_folder, style_folder),
+                                    File.join(asset_folder, script_folder)
       end
 
       def configure_asset_compressor(settings)
@@ -133,25 +138,6 @@ module Sinatra
         p.tagify
 
         pages[name] = p
-      end
-
-      private
-
-      def compile_assets
-        process_assets(script_asset_folder, script_public_folder)
-        process_assets(style_asset_folder, style_public_folder)
-      end
-
-      def process_assets(from_folder, to_folder)
-        Dir.glob("#{from_folder}/*.*") do |file|
-          asset = asset_handler.find(file)
-          asset.save_as "#{to_folder}/#{File.basename(file)}"
-        end
-      end
-
-      def minify_assets
-        asset_minifier.minify(script_public_folder, :js)
-        asset_minifier.minify(style_public_folder, :css)
       end
     end # Site
   end # Pubba
