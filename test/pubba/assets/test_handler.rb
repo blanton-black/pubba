@@ -13,4 +13,18 @@ class TestHandler < TestPubba
       handler.save_as('')
     end
   end
+
+  def test_process
+    handler = Sinatra::Pubba::Assets::Handler.new
+    assert_raises NotImplementedError do
+      handler.process('', '')
+    end
+  end
+
+  def test_build
+    handler = Sinatra::Pubba::Assets::Handler.new
+    assert_raises NotImplementedError do
+      handler.build('', '', '', '')
+    end
+  end
 end

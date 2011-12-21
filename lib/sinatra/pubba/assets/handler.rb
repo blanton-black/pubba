@@ -13,6 +13,10 @@ module Sinatra
         def process(pattern, destination)
           raise NotImplementedError
         end
+
+        def build(name, type, ext, urls)
+          raise NotImplementedError
+        end
       end # Handler
     end # Assets
   end # Pubba
