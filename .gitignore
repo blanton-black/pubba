@@ -13,8 +13,7 @@ doc
 coverage
 pkg
 
-test/sinatra/app/assets/*.js
+test/sinatra/app/assets/out
 test/sinatra/app/assets/javascripts/*.js
-test/sinatra/app/assets/*.css
 test/sinatra/app/assets/stylesheets/*.css
 test/sinatra/public
