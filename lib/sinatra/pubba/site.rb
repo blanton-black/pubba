@@ -59,8 +59,8 @@ module Sinatra
         public_script_folder = File.join(public_folder, script_folder)
         public_style_folder = File.join(public_folder, style_folder)
 
-        asset_handler.process(asset_script_folder, "*.js",  public_script_folder)
-        asset_handler.process(asset_style_folder, "*.css", public_style_folder)
+        asset_handler.process(asset_script_folder, public_script_folder)
+        asset_handler.process(asset_style_folder, public_style_folder)
 
         asset_minifier.minify(public_script_folder, :js)
         asset_minifier.minify(public_style_folder, :css)

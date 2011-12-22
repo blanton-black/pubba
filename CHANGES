@@ -6,6 +6,7 @@ master
   * 0.5.0 broken process; not pointing to new out directory
   * Consistency with directory names javascripts -> js, stylesheets -> css
   * Update to Statica 0.2.0
+  * Don't restrict asset sources to *.js and *.css to allow for pipelining
 
 0.5.0
 

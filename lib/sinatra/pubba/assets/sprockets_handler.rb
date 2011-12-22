@@ -20,10 +20,10 @@ module Sinatra
           @sprockets ||= Sprockets::Environment.new()
         end
 
-        def self.process(source, pattern, destination)
+        def self.process(source, destination)
           FileUtils.mkdir_p destination
 
-          Dir.glob("#{source}/#{pattern}") do |file|
+          Dir.glob("#{source}/*") do |file|
             asset = find(file)
             asset.save_as "#{destination}/#{File.basename(file)}"
           end
