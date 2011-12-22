@@ -122,16 +122,16 @@ Next up is creating the all important __pubba.yml__ config file:
 The config file is referencing the javascripts and stylesheets located in the `asset_folder`. The default folder structure for assets:
 
     # Javascript assets
-    {asset_dir}/js/
+    {asset_folder}/js/
 
     # Stylesheet assets
-    {asset_dir}/css/
+    {asset_folder}/css/
 
     # After processing javascripts will be placed in:
-    {public_dir}/js/
+    {public_folder}/js/
 
     # After processing stylesheets will be placed in:
-    {public_dir}/css/
+    {public_folder}/css/
 
 
 Now you obviouslly need some helpers to make use of the definitions in __pubba.yml__, and here they are:
