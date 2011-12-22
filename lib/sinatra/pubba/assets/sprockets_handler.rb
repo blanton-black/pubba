@@ -24,7 +24,6 @@ module Sinatra
           FileUtils.mkdir_p destination
 
           Dir.glob("#{source}/#{pattern}") do |file|
-            puts "processing: #{file}"
             asset = find(file)
             asset.save_as "#{destination}/#{File.basename(file)}"
           end
