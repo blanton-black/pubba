@@ -18,10 +18,10 @@ class TestPubbaSite < TestPubba
   end
 
   def test_script_folder_initialization
-    assert_equal "javascripts", Sinatra::Pubba::Site.script_folder
+    assert_equal "js", Sinatra::Pubba::Site.script_folder
   end
 
   def test_style_folder_initialization
-    assert_equal "stylesheets", Sinatra::Pubba::Site.style_folder
+    assert_equal "css", Sinatra::Pubba::Site.style_folder
   end
 end

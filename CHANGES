@@ -1,5 +1,14 @@
 master
 
+0.6.0
+
+  * 0.5.0 broken process; not pointing to new out directory
+  * Consistency with directory names javascripts -> js, stylesheets -> css
+
+0.5.0
+
+  * Move output files to {asset_dir}/out/{type}
+
 0.4.2
   * Use Rack::StaticaServer
 

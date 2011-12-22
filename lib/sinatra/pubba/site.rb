@@ -53,8 +53,8 @@ module Sinatra
       def process
         pages.each{|name, p| p.assetize }
 
-        asset_script_folder = File.join(asset_folder, 'out', 'js')
-        asset_style_folder = File.join(asset_folder, 'out', 'css')
+        asset_script_folder = File.join(asset_folder, 'out', script_folder)
+        asset_style_folder = File.join(asset_folder, 'out', style_folder)
 
         public_script_folder = File.join(public_folder, script_folder)
         public_style_folder = File.join(public_folder, style_folder)
@@ -85,8 +85,8 @@ module Sinatra
       def set_folder_defaults(settings)
         @public_folder    = settings.public_folder
         @asset_folder     = settings.asset_folder
-        @script_folder    = 'javascripts'
-        @style_folder     = 'stylesheets'
+        @script_folder    = 'js'
+        @style_folder     = 'css'
 
         Statica.root_dir  = settings.public_folder
       end

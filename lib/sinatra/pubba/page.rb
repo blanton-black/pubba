@@ -112,14 +112,14 @@ module Sinatra
       def add_style_tag(group, hash, url)
         h = { tag: 'link', type: 'text/css', rel: 'stylesheet' }
         h[:media] = hash['media'] if hash['media']
-        h[:href]  = url.start_with?("http") ? url : "/stylesheets/#{name}-#{group}.css"
+        h[:href]  = url.start_with?("http") ? url : "/#{Site.style_folder}/#{name}-#{group}.css"
 
         maybe_add_tag(@head_tags, h, :href)
       end
 
       def add_script_tag(group, url)
         h = { tag: 'script', type: "text/javascript" }
-        h[:src]   = url.start_with?("http") ? url : "/javascripts/#{name}-#{group}.js"
+        h[:src]   = url.start_with?("http") ? url : "/#{Site.script_folder}/#{name}-#{group}.js"
 
         tag_set = (group == "head") ? @head_tags : @body_tags
         maybe_add_tag(tag_set, h, :src)
