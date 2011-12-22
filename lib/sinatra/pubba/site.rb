@@ -53,11 +53,14 @@ module Sinatra
       def process
         pages.each{|name, p| p.assetize }
 
+        asset_script_folder = File.join(asset_folder, 'out', 'js')
+        asset_style_folder = File.join(asset_folder, 'out', 'css')
+
         public_script_folder = File.join(public_folder, script_folder)
         public_style_folder = File.join(public_folder, style_folder)
 
-        asset_handler.process(asset_folder, "*.js",  public_script_folder)
-        asset_handler.process(asset_folder, "*.css", public_style_folder)
+        asset_handler.process(asset_script_folder, "*.js",  public_script_folder)
+        asset_handler.process(asset_style_folder, "*.css", public_style_folder)
 
         asset_minifier.minify(public_script_folder, :js)
         asset_minifier.minify(public_style_folder, :css)
