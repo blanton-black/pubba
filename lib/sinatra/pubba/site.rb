@@ -91,6 +91,14 @@ module Sinatra
         Statica.root_dir  = settings.public_folder
       end
 
+      def asset_host=(p)
+        @asset_host = p
+      end
+
+      def asset_host
+        @asset_host ||= -> asset {asset}
+      end
+
       def maybe_init_r18n(settings)
         return unless settings.respond_to?(:r18n_folder)
 
