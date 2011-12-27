@@ -1,6 +1,6 @@
 # pubba
 
-pubba is a Sinatra extension designed to help you manage your site. It uses [Sprockets](https://github.com/sstephenson/sprockets) for packaging assets and [R18n](http://r18n.rubyforge.org/) for internationalization/localization. I use R18n as a central location for default text, the internationalization functionality is a nice bonus in the event the application needs to move in that direction.
+pubba is a library designed to help you manage your site. It uses [Sprockets](https://github.com/sstephenson/sprockets) for packaging assets and [R18n](http://r18n.rubyforge.org/) for internationalization/localization. I use R18n as a central location for default text, the internationalization functionality is a nice bonus in the event the application needs to move in that direction.
 
 # Note
 
@@ -44,7 +44,7 @@ More details on these later, but here are the configuration options:
 
 ### Asset handler. Defaults to [Sprockets](https://github.com/sstephenson/sprockets)
 Right now there's only support for Sprockets, but leaving the option open for others.
-    set :asset_handler, Sinatra::Pubba::Assets::SprocketsHandler
+    set :asset_handler, Pubba::Assets::SprocketsHandler
 
 ### Location of the [R18n](http://r18n.rubyforge.org/) folder. OPTIONAL
     set :r18n_folder, File.join(settings.root, 'i18n')
@@ -66,13 +66,14 @@ Then you'll want to use it in your app like so:
 
     class App < Sinatra::Application
       # Settings as described above
-      set :asset_folder, File.join(settings.root, 'assets')
       set :public_folder, File.join(settings.root, '..', 'public')
-      set :r18n_folder, File.join(settings.root, 'i18n')
 
-      set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
-
-      register Sinatra::Pubba
+      Pubba.configure do |p|
+        p.config_file   = File.join(settings.root, '..', 'config', 'pubba.yml')
+        p.public_folder = settings.public_folder
+        p.asset_folder  = File.join(settings.root, 'assets')
+        p.r18n_folder   = File.join(settings.root, 'i18n')
+      end
     end
 
 Next up is creating the all important __pubba.yml__ config file:
@@ -186,7 +187,7 @@ If you're using R18n, you will need a translation file, here's a sample en.yml:
 Take note of the __home__ section in both __pubba.yml__ and __en.yml__. If you have a route in your app that you want to use the __home__ defintions, do this:
 
     get '/' do
-      @page = Sinatra::Pubba::Site.page('home')
+      @page = Pubba::Site.page('home')
       slim :"aux/index"
     end
 
@@ -203,7 +204,7 @@ Notice that `title` is defined under the `home` section, but `home_link` is a to
 
 # Acknowledgement
 
-Huge thanks to my company, [Primedia](http://primedia.com) for encouraging open source contributions. This particular extension is obviously very new and hasn't hit a production site yet, but it will. I will post a list here as we migrate our applications from Rails to Sinatra.
+Huge thanks to my company, [Primedia](http://primedia.com) for encouraging open source contributions.
 
 # Contributors
 

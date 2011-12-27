@@ -32,27 +32,32 @@ class TestPubba < MiniTest::Unit::TestCase
 
   def setup
     mock_app do
-      require 'sinatra/pubba'
+      require 'pubba'
 
       settings.set :public_folder, R.public_folder
-      settings.set :asset_folder, R.asset_folder
-      settings.set :r18n_folder, R.r18n_folder
 
-      settings.set :pubba_config, R.pubba_config_file
+      Pubba.configure do |p|
+        p.config_file   = R.pubba_config_file
+        p.public_folder = settings.public_folder
+        p.asset_folder  = R.asset_folder
+        p.r18n_folder   = R.r18n_folder
+      end
 
-      register Sinatra::Pubba
+      Pubba::Site.configure
+
+      helpers Pubba::HTML::Helpers
 
       get('/') do
         'OK'
       end
 
       get('/home-page-head-tags') do
-        @page = Sinatra::Pubba::Site.page('home');
+        @page = Pubba::Site.page('home');
         page_head_tags
       end
 
       get('/home-page-body-tags') do
-        @page = Sinatra::Pubba::Site.page('home');
+        @page = Pubba::Site.page('home');
         page_body_tags
       end
     end

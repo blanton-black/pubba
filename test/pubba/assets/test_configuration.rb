@@ -2,7 +2,7 @@ require 'helper'
 
 class TestPubbaAssetsConfiguration < TestPubba
   def setup
-    @config = Sinatra::Pubba::Assets::Configuration.new(R.pubba_config_file)
+    @config = Pubba::Assets::Configuration.new(R.pubba_config_file)
   end
 
   def test_yaml_is_initialized

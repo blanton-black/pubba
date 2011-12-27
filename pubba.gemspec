@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.dirname(__FILE__) + '/lib/sinatra/pubba/version'
+require File.dirname(__FILE__) + '/lib/pubba/version'
 require 'date'
 
 Gem::Specification.new do |s|
@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.date              = Date.today.to_s
   s.authors           = ['Andrew Stone']
   s.email             = ['andy@stonean.com']
-  s.summary           = 'Pubba is a Sinatra extension designed to help you manage the static components of your site.'
+  s.summary           = 'Pubba is a library designed to help you manage the static components of your site.'
   s.homepage          = 'http://github.com/stonean/pubba'
   s.extra_rdoc_files  = %w(README.md)
   s.rdoc_options      = %w(--charset=UTF-8)
