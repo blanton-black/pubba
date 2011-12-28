@@ -30,7 +30,7 @@ module Pubba
 
       def self.build(name, type, ext, urls)
         content = urls.collect{|url| "//= require #{url}.#{ext}"}.compact.join("\n")
-        out_folder = File.join(Site.asset_folder, "out", ext)
+        out_folder = File.join(Pubba.asset_folder, "out", ext)
         FileUtils.mkdir_p out_folder
         fname = File.join(out_folder, "#{name}-#{type}.#{ext}")
         File.open(fname, 'w') do |f|

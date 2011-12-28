@@ -31,14 +31,6 @@ module Pubba
         add_page(p, config)
       end
 
-=begin
-      if app.settings.development? || app.settings.test?
-        process
-
-        require_relative 'monitor'
-        Monitor.do
-      end
-=end
       @configured = true
     end
 
@@ -51,11 +43,11 @@ module Pubba
       public_script_folder = File.join(Pubba.public_folder, Pubba.script_folder)
       public_style_folder = File.join(Pubba.public_folder, Pubba.style_folder)
 
-      asset_handler.process(asset_script_folder, public_script_folder)
-      asset_handler.process(asset_style_folder, public_style_folder)
+      Pubba.asset_handler.process(asset_script_folder, public_script_folder)
+      Pubba.asset_handler.process(asset_style_folder, public_style_folder)
 
-      asset_minifier.minify(public_script_folder, :js)
-      asset_minifier.minify(public_style_folder, :css)
+      Pubba.asset_minifier.minify(public_script_folder, :js)
+      Pubba.asset_minifier.minify(public_style_folder, :css)
     end
 
     def validate_settings

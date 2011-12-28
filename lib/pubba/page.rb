@@ -77,7 +77,7 @@ module Pubba
           next if url.start_with?("http")
           urls << url
         end
-        Site.asset_handler.build(name, group, "css", urls)
+        Pubba.asset_handler.build(name, group, "css", urls)
       end
     end
 
@@ -88,7 +88,7 @@ module Pubba
           next if url.start_with?("http")
           urls << url
         end
-        Site.asset_handler.build(name, group, "js", urls)
+        Pubba.asset_handler.build(name, group, "js", urls)
       end
     end
 
