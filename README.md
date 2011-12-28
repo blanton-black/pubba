@@ -81,7 +81,7 @@ First things first, you'll want to install the gem:
 
 Then you'll want to use it in your app like so:
 
-    require 'sinatra/pubba'
+    require 'pubba'
 
     class App < Sinatra::Application
       # Settings as described above
