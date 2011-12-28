@@ -33,24 +33,40 @@ More details on these later, but here are the configuration options:
 
 **Note: __settings.root__ refers to \<ProjectRoot\>/app/**
 
-### Location of the config file. REQUIRED
-    set :pubba_config, File.join(settings.root, '..', 'config', 'pubba.yml')
+    Pubba.configure do |p|
+      # REQUIRED.
+      p.config_file   = File.join( File.dirname(__FILE__), 'pubba.yml')
 
-### Location of the public_folder. REQUIRED
-    set :public_folder, File.join(settings.root, '..', 'public')
+      # REQUIRED.
+      p.asset_folder  = File.join(settings.root, 'assets')
 
-### Location of the asset_folder. REQUIRED
-    set :asset_folder, File.join(settings.root, 'assets')
+      # REQUIRED.
+      p.public_folder = settings.public_folder
 
-### Asset handler. Defaults to [Sprockets](https://github.com/sstephenson/sprockets)
-Right now there's only support for Sprockets, but leaving the option open for others.
-    set :asset_handler, Pubba::Assets::SprocketsHandler
+      # OPTIONAL. Defaults to 'css'
+      p.style_folder = 'css'
 
-### Location of the [R18n](http://r18n.rubyforge.org/) folder. OPTIONAL
-    set :r18n_folder, File.join(settings.root, 'i18n')
+      # OPTIONAL. Defaults to 'js'
+      p.script_folder = 'js'
 
-### Locale. Defaults to 'en'
-    set :r18n_locale, 'en'
+      # OPTIONAL. Defaults to [Sprockets](https://github.com/sstephenson/sprockets/)
+      p.asset_handler = Pubba::Assets::SprocketsHandler
+
+      # OPTIONAL. Defaults to [YUI Compressor](https://github.com/sstephenson/ruby-yui-compressor/)
+      p.asset_minifier = Pubba::Assets::YUIMinifier
+
+      # OPTIONAL. Asset hosts (value must be a Proc)
+      p.asset_host = -> asset { [  "http://assets.mysite.com#{asset}",
+                                   "http://assets1.mysite.com#{asset}"].sample }
+
+      # OPTIONAL.
+      p.r18n_folder   = File.join(settings.root, 'i18n')
+
+      # OPTIONAL.
+      p.r18n_locale, 'en'
+    end
+
+
 
 
 
