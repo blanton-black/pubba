@@ -47,14 +47,6 @@ module Pubba
       Pubba.asset_minifier.minify(public_style_folder, :css)
     end
 
-    def asset_host=(p)
-      @asset_host = p
-    end
-
-    def asset_host
-      @asset_host ||= -> asset {asset}
-    end
-
     def maybe_init_r18n
       return unless Pubba.r18n_folder
 

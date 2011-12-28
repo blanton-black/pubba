@@ -10,7 +10,7 @@ module Pubba
       end
 
       def digest_url(url)
-        url.start_with?('http') ? url : Site.asset_host[::Statica.digest_url(url)]
+        url.start_with?('http') ? url : Pubba.asset_host[::Statica.digest_url(url)]
       end
 
       private

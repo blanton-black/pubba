@@ -24,6 +24,12 @@ module Pubba
       @asset_minifier = Pubba::Assets::YUIMinifier
       @script_folder  = 'js'
       @style_folder   = 'css'
+
+      init_asset_host
+    end
+
+    def init_asset_host
+      @asset_host     = -> asset {asset}
     end
 
     def validate_settings
