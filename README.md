@@ -49,10 +49,10 @@ More details on these later, but here are the configuration options:
       # OPTIONAL. Defaults to 'js'
       p.script_folder = 'js'
 
-      # OPTIONAL. Defaults to [Sprockets](https://github.com/sstephenson/sprockets/)
+      # OPTIONAL. Defaults to Sprockets: https://github.com/sstephenson/sprockets/
       p.asset_handler = Pubba::Assets::SprocketsHandler
 
-      # OPTIONAL. Defaults to [YUI Compressor](https://github.com/sstephenson/ruby-yui-compressor/)
+      # OPTIONAL. Defaults to YUI Compressor: https://github.com/sstephenson/ruby-yui-compressor/
       p.asset_minifier = Pubba::Assets::YUIMinifier
 
       # OPTIONAL. Asset hosts (value must be a Proc)
