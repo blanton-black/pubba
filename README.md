@@ -183,6 +183,30 @@ Again, using the above __pubba.yml__ configuration, if you are using the 'home' 
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/js/home-body.js" type="text/javascript"></script>
 
+# Monitoring changes
+
+To monitor your assets directory to keep the public directory in sync, you'll need to create a rake task:
+
+    namespace :pubba do
+      desc 'Process the js and css assets then monitor for changes'
+      task :monitor do
+
+        # Require your app to configure Pubba
+        require_relative 'app/app'
+
+        require 'pubba/monitor'
+
+        # The monitor process will only run Site.process when it detects a
+        # change so we need to run it once to make sure the public directory
+        # is in sync.
+
+        puts ">> Processing assets..."
+        Pubba::Site.process
+
+        Pubba::Monitor.run
+      end
+    end
+
 # R18n
 
 If you're using R18n, you will need a translation file, here's a sample en.yml:
@@ -215,30 +239,6 @@ The `@page` variable gives you access to the definitions in __en.yml__. In your 
           a href="/" = @page.home_link
 
 Notice that `title` is defined under the `home` section, but `home_link` is a top level definition. Pubba makes the effort to correctly resolve the __en.yml__ reference for you. Nice isn't it.
-
-# Monitoring changes
-
-To monitor your assets directory to keep the public directory in sync, you'll need to create a rake task:
-
-    namespace :pubba do
-      desc 'Process the js and css assets then monitor for changes'
-      task :monitor do
-
-        # Require your app to configure Pubba
-        require_relative 'app/app'
-
-        require 'pubba/monitor'
-
-        # The monitor process will only run Site.process when it detects a
-        # change so we need to run it once to make sure the public directory
-        # is in sync.
-
-        puts ">> Processing assets..."
-        Pubba::Site.process
-
-        Pubba::Monitor.run
-      end
-    end
 
 # Acknowledgement
 
