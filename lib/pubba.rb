@@ -15,6 +15,8 @@ module Pubba
 
     def configure
       yield self
+      validate_settings
+      Site.configure
     end
 
     def set_defaults
@@ -22,6 +24,17 @@ module Pubba
       @asset_minifier = Pubba::Assets::YUIMinifier
       @script_folder  = 'js'
       @style_folder   = 'css'
+    end
+
+    def validate_settings
+      missing_settings = []
+      missing_settings << ":public_folder has not been set!" unless Pubba.public_folder
+      missing_settings << ":asset_folder has not been set!" unless Pubba.asset_folder
+
+      if missing_settings.length > 0
+        messages = missing_settings.join("\n")
+        raise Pubba::ConfigurationError.new("Missing configuration options:\n#{messages}")
+      end
     end
   end
 end # Pubba

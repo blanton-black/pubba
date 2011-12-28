@@ -12,10 +12,6 @@ module Pubba
     attr_reader :asset_configuration, :locale
 
     def configure
-      return if @configured
-
-      validate_settings
-
       Statica.root_dir  = Pubba.public_folder
 
       maybe_init_r18n
@@ -26,12 +22,13 @@ module Pubba
       # Set assset handler
       configure_asset_handler
 
+      # Set pages to empty hash
+      @pages = {}
+
       # Process the remaining @pubba_config sections
       asset_configuration.process do |p, config|
         add_page(p, config)
       end
-
-      @configured = true
     end
 
     def process
@@ -48,17 +45,6 @@ module Pubba
 
       Pubba.asset_minifier.minify(public_script_folder, :js)
       Pubba.asset_minifier.minify(public_style_folder, :css)
-    end
-
-    def validate_settings
-      missing_settings = []
-      missing_settings << ":public_folder has not been set!" unless Pubba.public_folder
-      missing_settings << ":asset_folder has not been set!" unless Pubba.asset_folder
-
-      if missing_settings.length > 0
-        messages = missing_settings.join("\n")
-        raise Pubba::ConfigurationError.new("Missing configuration options:\n#{messages}")
-      end
     end
 
     def asset_host=(p)
