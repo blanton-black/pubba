@@ -253,3 +253,5 @@ Huge thanks to my company, [Primedia](http://primedia.com) for encouraging open 
 
 I highly value contributions and will happily list all those who submit accepted pull requests.
 
+[Chas Lemley](https://github.com/chaslemley)
+  YUI Compressor support
