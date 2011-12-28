@@ -3,6 +3,7 @@ master
   * Conceptual change from Sinatra extension to generic library
   * Namespace changed from Sinatra::Pubba to Pubba
   * Change to configuration implementation
+  * Pubba::Site.configure called in Pubba.configure
   * Removed automatic monitoring. Detailed how to set this up as a Rake task in the README
   * Added ability to set asset host(s)
   * Javascript and Stylesheet folders are configurable. Defaults to 'js' and 'css'.
