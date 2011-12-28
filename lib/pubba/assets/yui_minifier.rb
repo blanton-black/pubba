@@ -7,8 +7,12 @@ module Pubba
       def self.minify(folder, handler)
         compressor = get_compressor(handler)
         Dir.glob("#{folder}/*.*") do |file|
-          contents = File.read(file)
-          File.open(file, "w") {|f| f.write(compressor.compress(contents))}
+          begin
+            compressed_contents = compressor.compress( File.read(file) )
+            File.open(file, "w") {|f| f.write( compressed_contents) }
+          rescue YUI::Compressor::RuntimeError => e
+            puts "> Compressor encountered an error in #{file}"
+          end
         end
       end
 
