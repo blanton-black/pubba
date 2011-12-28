@@ -31,8 +31,13 @@ In addition, when using R18n, pubba gives you access through a single page objec
 
 More details on these later, but here are the configuration options:
 
-**Note: __settings.root__ refers to \<ProjectRoot\>/app/**
+### A couple of things to note:
 
+* __settings.root__ refers to &lt;ProjectRoot&gt;/app/**
+* Images are not processed and should be stored in your public directory
+
+
+### Sample configuration
     Pubba.configure do |p|
       # REQUIRED.
       p.config_file   = File.join( File.dirname(__FILE__), 'pubba.yml')
