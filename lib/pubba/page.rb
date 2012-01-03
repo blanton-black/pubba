@@ -112,6 +112,7 @@ module Pubba
       h = { tag: 'link', type: 'text/css', rel: 'stylesheet' }
       h[:media] = hash['media'] if hash['media']
       h[:href]  = url.start_with?("http") ? url : "/#{Pubba.style_folder}/#{name}-#{group}.css"
+      h[:id] = hash['id'] if hash['id']
 
       maybe_add_tag(@head_tags, h, :href)
     end
